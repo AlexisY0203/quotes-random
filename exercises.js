@@ -25,17 +25,27 @@ loop(3, n => n > 0, n => n - 1, console.log);
     In a way, some is a version of the || operator that acts on arrays, and every is like the && operator.
     Implement two versions of every (everySome and everyLoop) as a function that takes an array and a predicate function as parameters. Write two versions, 
     one using a loop and one using the some method.*/
-function everyLoop(array, test) {
-    // Your code here.
+export function everyLoop(array, test) {
+    let returnValue = true
+    for(let item of array) {
+        returnValue = returnValue && test(item)
+    }
+    return returnValue
 }
-    
-function everySome(array, test) {
-    // Your code here.
-} 
-    
 console.log(everyLoop([1, 3, 5], n => n < 10));
 // → true
 console.log(everyLoop([2, 4, 16], n => n < 10));
 // → false
 console.log(everyLoop([], n => n < 10));
+// → true
+    
+//There isn't an item in the array that doesn't meet the test.
+export function everySome(array, test) {
+    return !array.some(item => !test(item)) //Whether any given item passes the test (test item1 || test item 2 || test item3)
+}   
+console.log(everySome([1, 3, 5], n => n < 10));
+// → true
+console.log(everySome([2, 4, 16], n => n < 10));
+// → false
+console.log(everySome([], n => n < 10));
 // → true
